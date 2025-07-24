@@ -1,6 +1,6 @@
 """Promptdiff main package."""
 
-__all__ = ["cli"]
+__all__ = ["app"]
 
 from .cli import app
 
