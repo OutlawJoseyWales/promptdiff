@@ -23,9 +23,27 @@ def init(
 
 
 @app.command()
-def record(flow: str, testset: str) -> None:
-    """Run flow on a test set and save results (placeholder)."""
-    record_results(flow, testset)
+def record(
+    flow: Path = typer.Argument(..., help="Flow script to run"),
+    testset: Path = typer.Argument(..., help="Test set directory"),
+    prompt_template: str | None = typer.Option(
+        None, help="Prompt template string", show_default=False
+    ),
+    prompt_file: Path | None = typer.Option(
+        None, help="Path to a file containing the prompt", show_default=False
+    ),
+    prompt_vars: str | None = typer.Option(
+        None, help="Prompt variables as JSON or path", show_default=False
+    ),
+) -> None:
+    """Run flow on a test set and save results."""
+    record_results(
+        str(flow),
+        str(testset),
+        prompt_template=prompt_template,
+        prompt_file=str(prompt_file) if prompt_file else None,
+        prompt_vars=prompt_vars,
+    )
 
 
 @app.command()
